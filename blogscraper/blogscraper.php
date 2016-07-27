@@ -38,35 +38,6 @@ class blog_scraping_Class {
     function blog_scraping_option_page() {
         
         
-         $blog_scraping_array = array(
-         
-            ['setting_title'] => '',
-            ['setting_list'] => array(
-                'title_class' => 'a.skinArticleTitle',
-                'body_class' => '.articleText',
-                'theme_class' => '.articleTheme a[rel="tag"]',
-                'date_class' => 'span.articleTime time'
-            ),
-            
-            ['setting_title'] => '',
-            ['setting_list'] => array(
-                'title_class' => '.skin-entryTitle a',
-                'body_class' => '.skin-entryBody',
-                'theme_class' => '.skin-entryThemes a[rel="tag"]',
-                'date_class' => '.skin-entryPubdate time'
-            ),
-         );
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         //$_POST['blog_scraper_options'])があったら保存
         if ( isset($_POST['blog_scraper_options'])) {
             check_admin_referer('shoptions');
