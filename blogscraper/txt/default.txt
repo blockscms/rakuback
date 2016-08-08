@@ -1,0 +1,4 @@
+a.skinArticleTitle
+.articleTime time
+.articleText
+.articleTheme a[rel='tag']

@@ -47,34 +47,6 @@ class blog_scraping_Class {
         }
         ?>
         <div class="wrap">
-        <script type="text/javascript">
-       jQuery(document).ready(function() {
-    var formfield;
-    //メタボックス内のボタンからmedia_upload.phpを呼び出す
-    jQuery('#upload_image_button').click(function() {
-        jQuery('#upload_image').addClass('image');
-        formfield = jQuery('.image').attr('name');
-        tb_show('', 'media-upload.php?type=image&TB_iframe=true');
-        return false;
-    });
- 
-    window.original_send_to_editor = window.send_to_editor;
-    //メディアアップローダーからきた変数htmlを各々へ挿入
-    window.send_to_editor = function(html){
-        //「"」を「'」に変換
-        html = new String(html).replace(/\"/g, "'");
-        if (formfield) {
-            jQuery('.image').val(html);
-            tb_remove();
-            jQuery('#upload_image').removeClass('image');
-            //挿入した画像プレビューさせるエリアへソースをいれる
-            jQuery('#uploadedImageView').html(html);
-        } else {
-            window.original_send_to_editor(html);
-        }
-    };
-});
-        </script>
         
         <div id="icon-options-general" class="icon32"><br /></div><h2>ブログ読み込み設定</h2>
             <form action="" method="post">
@@ -103,6 +75,8 @@ class blog_scraping_Class {
                 $blog_post_type = isset($opt['post_type']) ? $opt['post_type']: null;
                 
                 $scraping_all_counter = isset($opt['counter']) ? $opt['counter']: 0;
+                $scraping_setting = isset($opt['setting']) ? $opt['setting'] : null;
+
                 
                 ?> 
                 <table class="form-table">
@@ -154,6 +128,24 @@ class blog_scraping_Class {
                         
                     </tr>
                     
+                    
+        <tr valign="top">
+            <th scope="row"><label for="inputtext">取得する場所</label></th>
+            <td>
+                <select name="blog_scraper_options[setting]" id="scraping_setting">
+                    <option value=""></option>
+                    <option value="default"<?php if ( $scraping_setting  === 'default' ): ?>selected<?php endif; ?>>アメブロ　一般</option>
+                    <option value="desginer"<?php if (  $scraping_setting  === 'desginer' ): ?>selected<?php endif; ?>>アメブロ　デザイナーテーマ</option>
+                    <option value="custom"<?php if (  $scraping_setting  === 'custom' ): ?>selected<?php endif; ?>>自分で設定</option>
+                </select>
+            </td>
+        </tr>
+        
+        
+        
+        <?php if( $scraping_setting == 'custom' ){ ?>   
+                    
+                    
                     <tr valign="top">
                         <th scope="row"><label for="inputtext">タイトルの場所</label></th>
                         <td><input name="blog_scraper_options[title_class]" type="text" id="inputtext" value="<?php  echo $blog_scraping_title ?>" class="regular-text" /><br>
@@ -182,6 +174,8 @@ class blog_scraping_Class {
                         </td>
                     </tr>
                     
+                    <?php }//endif ?>
+                    
                     <tr valign="top">
                         <th scope="row"><label for="inputtext">全体読み込み</label></th>
                         <td>
@@ -205,9 +199,39 @@ class blog_scraping_Class {
                     
                     
                 </table>
+                
+                <?php if( $scraping_setting == 'default' ){ 
+        
+            //テキストファイルのパス指定
+            $file = dirname(__FILE__) . '/txt/default.txt';
+            echo file_get_contents($file);
+            //配列に格納
+            $array = @file($file, FILE_IGNORE_NEW_LINES);
+            //配列のデータを出力
+            echo '<pre>'; print_r($array);echo '</pre>'; 
+         
+        }
+        
+        if( $scraping_setting == 'desginer' ){ 
+        
+            //テキストファイルのパス指定
+            $file = dirname(__FILE__) . '/txt/designer.txt';
+            echo file_get_contents($file);
+            //配列に格納
+            $array = @file($file, FILE_IGNORE_NEW_LINES);
+            //配列のデータを出力
+            echo '<pre>'; print_r($array);echo '</pre>'; 
+        
+        };?>
+                
+                
                 <p class="submit"><input type="submit" name="Submit" class="button-primary" value="変更を保存" /></p>
             </form>
         <!-- /.wrap --></div>
+        
+        
+        
+        
         <?php
         
     }

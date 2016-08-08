@@ -1,0 +1,4 @@
+.skin-entryTitle a
+.skin-entryBody
+.skin-entryThemes a[rel='tag']
+span.articleTime time

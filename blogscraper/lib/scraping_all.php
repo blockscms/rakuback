@@ -69,16 +69,38 @@ function scraping_all_function() {
         
         $counter = 0;
         
+        //読み込み設定を取得
         $opt = get_option('blog_scraper_options');
-        $blog_scraping_url = isset($opt['url']) ? $opt['url']: null;
-        $blog_scraping_title = isset($opt['title_class']) ? $opt['title_class']: null;
-        $blog_scraping_body = isset($opt['body_class']) ? $opt['body_class']: null;
-        $blog_scraping_theme = isset($opt['theme_class']) ? $opt['theme_class']: null;
-        $blog_scraping_date = isset($opt['date_class']) ? $opt['date_class']: null;
-        
+        $blog_rss_feed = $opt['feed'];
         $blog_post_type = isset($opt['post_type']) ? $opt['post_type']: null;
-        
+        $blog_scraping_url = isset($opt['url']) ? $opt['url']: null;
         $blog_url_list = isset($opt['url_list']) ? $opt['url_list']: null;
+        
+        $scraping_setting = isset($opt['setting']) ? $opt['setting'] : null;
+        
+        if( isset($scraping_setting)){
+            $file = dirname(__FILE__) . '/txt/'. $scraping_setting .'.txt';
+            file_get_contents($file);
+            //配列に格納
+            $array = @file($file, FILE_IGNORE_NEW_LINES);
+            
+            $blog_scraping_title = $array[0];
+            $blog_scraping_body = $array[1];
+            $blog_scraping_theme = $array[2];
+            $blog_scraping_date = $array[3];
+            
+            
+        } else {
+            
+            
+            $blog_scraping_title = isset($opt['title_class']) ? $opt['title_class']: null;
+            $blog_scraping_body = isset($opt['body_class']) ? $opt['body_class']: null;
+            $blog_scraping_theme = isset($opt['theme_class']) ? $opt['theme_class']: null;
+            $blog_scraping_date = isset($opt['date_class']) ? $opt['date_class']: null;
+            
+        }
+        
+        
         
         $current_counter = get_option( 'blog_scraper_options[counter]' );
         
