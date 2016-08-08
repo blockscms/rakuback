@@ -208,7 +208,7 @@ class blog_scraping_Class {
             //配列に格納
             $array = @file($file, FILE_IGNORE_NEW_LINES);
             //配列のデータを出力
-            echo '<pre>'; print_r($array);echo '</pre>'; 
+            //echo '<pre>'; print_r($array);echo '</pre>'; 
          
         }
         
@@ -220,7 +220,7 @@ class blog_scraping_Class {
             //配列に格納
             $array = @file($file, FILE_IGNORE_NEW_LINES);
             //配列のデータを出力
-            echo '<pre>'; print_r($array);echo '</pre>'; 
+            //echo '<pre>'; print_r($array);echo '</pre>'; 
         
         };?>
                 
