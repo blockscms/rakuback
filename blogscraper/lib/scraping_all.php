@@ -177,7 +177,8 @@ function scraping_all_function() {
                         $pathData = pathinfo($img_result);
                         
                         //$blog_entry['image'][$i]['filename']　に、ファイルのベースネームを格納
-                        $blog_entry['image'][$i]['filename'] = $pathData["basename"]; //ファイル名
+                        $pathData_basename = preg_replace('/jpg\?caw=(.+)?/', 'jpg', $pathData["basename"]);
+                        $blog_entry['image'][$i]['filename'] = $pathData_basename; //ファイル名
                         
                         //アメブロの場合は、日付別にフォルダを分けたい
                         //$blog_entry['image'][$i]['path']に、保存先を格納
